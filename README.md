@@ -11,5 +11,6 @@ There are 3 branches:
 - `react_native_extern`: use https://github.com/artemyarulin/react-native-externs as [suggested by @mfikes on #cljsrn](https://clojurians.slack.com/archives/C0E1SN0NM/p1499038866853638)
   
 `lein clean && lein prod-build && react-native run-ios --configuration Release`  
-  This branch works perfectly.
+ 
+ All branches now work perfectly.
 
