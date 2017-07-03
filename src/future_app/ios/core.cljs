@@ -7,7 +7,7 @@
 
 (def ReactNative (js/require "react-native"))
 (def app-registry (gobj/get ReactNative "AppRegistry"))
-(def text (r/adapt-react-class (get ReactNative "Text")))
+(def text (r/adapt-react-class (gobj/get ReactNative "Text")))
 (def view (r/adapt-react-class (gobj/get ReactNative "View")))
 (def image (r/adapt-react-class (gobj/get ReactNative "Image")))
 (def touchable-highlight (r/adapt-react-class (gobj/get ReactNative "TouchableHighlight")))
