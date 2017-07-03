@@ -8,5 +8,5 @@ You just have to type:
 `lein clean && lein prod-build && react-native run-ios --configuration Release`
 
 
-This branch uses https://github.com/artemyarulin/react-native-externs.
+**This branch uses https://github.com/artemyarulin/react-native-externs.**
 
