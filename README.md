@@ -8,5 +8,5 @@ You just have to type:
 `lein clean && lein prod-build && react-native run-ios --configuration Release`
 
 
-This branch uses goog.object to retrieve javascript properties 
+**This branch uses goog.object to retrieve javascript properties.** 
 
