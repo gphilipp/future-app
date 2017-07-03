@@ -1,9 +1,9 @@
-See doc on https://github.com/gphilipp/future-app/tree/master
+See doc on https://github.com/gphilipp/future-app/blob/master/README.md
 
-
+When running:
 `lein clean && lein prod-build && react-native run-ios --configuration Release`
 
-This branch fails with
+This branch fails with:
   
 ```
 2017-07-03 11:26:34.149 [info][tid:main][RCTBatchedBridge.m:77] Initializing <RCTBatchedBridge: 0x6180001bc9a0> (parent: <RCTBridge: 0x6180002c05b0>, executor: RCTJSCExecutor)
