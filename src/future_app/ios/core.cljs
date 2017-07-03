@@ -2,19 +2,20 @@
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
             [future-app.events]
-            [goog.object :as gobj]
             [future-app.subs]))
 
 (def ReactNative (js/require "react-native"))
-(def app-registry (gobj/get ReactNative "AppRegistry"))
-(def text (r/adapt-react-class (get ReactNative "Text")))
-(def view (r/adapt-react-class (gobj/get ReactNative "View")))
-(def image (r/adapt-react-class (gobj/get ReactNative "Image")))
-(def touchable-highlight (r/adapt-react-class (gobj/get ReactNative "TouchableHighlight")))
+
+(def app-registry (.-AppRegistry ReactNative))
+(def text (r/adapt-react-class (.-Text ReactNative)))
+(def view (r/adapt-react-class (.-View ReactNative)))
+(def image (r/adapt-react-class (.-Image ReactNative)))
+(def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
 
 (def logo-img (js/require "./images/cljs.png"))
 
-(defn alert [title] (.alert (gobj/get ReactNative "Alert") title))
+(defn alert [title]
+      (.alert (.-Alert ReactNative) title))
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
