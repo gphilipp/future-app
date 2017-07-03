@@ -1,14 +1,12 @@
-# future-app
+# Clojurescript with React-native advanced compilation
 
-A Clojure library designed to ... well, that part is up to you.
 
-## Usage
+I'm trying to use :advanced mode to compile more efficient javascript.
 
-FIXME
+You just have to type: 
+ 
+`lein clean && lein prod-build && react-native run-ios --configuration Release`
 
-## License
 
-Copyright © 2017 FIXME
+This branch uses https://github.com/artemyarulin/react-native-externs.
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
