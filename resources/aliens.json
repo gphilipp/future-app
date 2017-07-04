@@ -1,0 +1,48 @@
+[
+  {
+    "firstname": "Ellen",
+    "lastname": "Ripley",
+    "rank": "Officer",
+    "guns": [
+      {
+        "type": "flamethrower",
+        "model": "M240A1"
+      },
+      {
+        "type": "pulse-rifle",
+        "model": "M41A"
+      }
+    ]
+  },
+  {
+    "firstname": "Mark",
+    "lastname": "Drake",
+    "rank": "Private",
+    "guns": [
+      {
+        "type": "smartgun",
+        "model": "M56"
+      },
+      {
+        "type": "knife",
+        "length": "10"
+      }
+    ]
+  }
+  ,  {
+  "firstname": "Jenette",
+  "lastname": "Vasquez",
+  "rank": "Private",
+  "guns": [
+    {
+      "type": "smartgun",
+      "model": "M56"
+    },
+    {
+      "type": "knife",
+      "length": "20"
+    }
+  ]
+}
+
+]
