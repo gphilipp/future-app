@@ -15,8 +15,20 @@
 #?(:clj  (type (Date.))
    :cljs (js/alert "foo"))
 
+
+
+;┌───────────────────────────────────────────┐
+;│                                           │
+;│          Les données littérales           │
+;│                                           │
+;└───────────────────────────────────────────┘
+
+
 ;; strings
 "Clojure rocks"
+
+;Expressions régulières
+(re-find #"^Clojure" "Clojure rocks")
 
 (type "Clojure rocks")
 
@@ -36,6 +48,12 @@
 
 ;; precise arithmetic (in Clojure, not in ClojureScript)
 (/ 1 3)
+
+;┌───────────────────────────────────────────┐
+;│                                           │
+;│        Les collections littérales         │
+;│                                           │
+;└───────────────────────────────────────────┘
 
 
 ;; collections
@@ -104,54 +122,75 @@
   (map :lastname))
 
 
-;; clojure.spec (generate fictional characters)
-; guns : smartguns, pulse rifle, flamethrower, knife, shotgun, grenade, powerloader
-; lastnames: Ferro, Frost, Apone, Hicks, Hudson...
-; rank: sergeant, private, commander, lieutenant, civilian
-; civilian = no gun
+;┌───────────────────────────────────────────┐
+;│               CLojure Spec                │
+;│      Permet de spécifier ses données      │
+;│                                           │
+;└───────────────────────────────────────────┘
 
-(spec/def :crew/gun (spec/keys :req-un [:gun/type
-                                        :gun/model
+
+(spec/def :gun/type #{"flamethrower" "powerloader" "smartgun" "pulse-rifle" "knife" "grenade" "shotgun"})
+(spec/def :gun/model string?)
+(spec/def :gun/length (spec/int-in 10 200))
+
+
+(spec/def :crew/gun (spec/keys :req-un [:gun/type]
+                               :opt-un [:gun/model
                                         :gun/length]))
+
 
 (spec/def :crew/firstname string?)
 (spec/def :crew/lastname string?)
-(spec/def :crew/type #{:soldier :civilian})
-(spec/def :crew/rank #{"private" "lieutenant" "sergeant" "commander"})
-(spec/def :gun/type #{:flamethrower :powerloader :smartguns :pulse :knife :grenade :rifle :shotgun})
-(spec/def :gun/model (spec/and string? #(< 10 (count %) 15)))
-(spec/def :gun/length (spec/int-in 10 200))
+(spec/def :crew/rank #{"private" "lieutenant" "sergeant" "Officer" "commander"})
 (spec/def :crew/guns (spec/coll-of :crew/gun :min-count 1 :max-count 3 :distinct true))
 
-(spec/def :crew/member (spec/keys :req-un [:crew/firstname
-                                           :crew/lastname
-                                           :crew/type]))
+(spec/def :crew/civilian (spec/keys :req-un [:crew/firstname
+                                             :crew/lastname
+                                             ]))
 
-(spec/def :crew/soldier (spec/merge :crew/member
-                          (spec/keys :req-un [:crew/rank
-                                              :crew/guns])))
-
-(defmulti crew-type :type)
+(spec/def :crew/soldier (spec/merge :crew/civilian
+                                    (spec/keys :req-un [:crew/rank
+                                                        :crew/guns])))
 
 
-(defmethod crew-type :civilian [_]
-  :crew/member)
+(spec/def :crew/member (spec/or :civilian :crew/civilian
+                             :soldier :crew/soldier))
 
-(defmethod crew-type :soldier [_]
-  (spec/merge :crew/member :crew/soldier))
+;┌───────────────────────────────────────────┐
+;│               CLojure Spec                │
+;│       Permet de valider ses données       │
+;│                                           │
+;└───────────────────────────────────────────┘
 
-(spec/def :crew/person (spec/multi-spec crew-type :type))
+(spec/def :crew/squad (spec/coll-of :crew/soldier))
+
+(spec/conform :crew/squad aliens-character-from-json)
+
+(spec/explain :crew/squad aliens-character-from-json)
 
 
-(gen/sample (spec/gen :crew/person) 25)
+;┌───────────────────────────────────────────┐
+;│               CLojure Spec                │
+;│      Permet de spécifier ses données      │
+;│                                           │
+;└───────────────────────────────────────────┘
+
+
+(gen/sample (spec/gen :crew/member) 25)
+
+
+
+
+;┌───────────────────────────────────────────┐
+;│               CLojure Spec                │
+;│    Permet de spécifier le contrat des     │
+;│                 fonctions                 │
+;└───────────────────────────────────────────┘
 
 
 (spec/fdef has-weapon
-  :args (spec/cat :gun :gun/type :person :crew/soldier)
-  :ret (spec/nilable boolean?))
-
+        :args (spec/cat :gun :gun/type :person :crew/soldier))
 
 (spec/exercise-fn `has-weapon 25)
-
 
 
